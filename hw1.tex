@@ -1,0 +1,49 @@
+\documentclass[10pt]{amsart}
+
+\usepackage{color}
+\usepackage{enumitem}
+\usepackage{verbatim}
+
+\setlength{\headsep}{.33in}
+\setlength{\topsep}{0in}
+\setlength{\topmargin}{-1in}
+\setlength{\topskip}{0.4in}    % between header and text
+\setlength{\textheight}{11in} % height of main text
+\setlength{\textwidth}{7.05in}    % width of text
+\setlength{\oddsidemargin}{-0.30in} % odd page left margin
+\setlength{\evensidemargin}{-0.30in} % even page left margin
+\setlength{\parindent}{0in}   % remove paragraph indenting
+
+\linespread{1.13}
+
+\newcommand{\head}[1]{
+   \begin{tabular*}{7.1in}{@{}l@{\extracolsep{\fill}}r}
+      Russell Frank & \today \\
+   \end{tabular*}
+   \begin{center} \LARGE #1 \normalsize \end{center}
+   \vskip 0.1in
+}
+
+\begin{document}
+
+\head{Data Science HW 1}
+
+\textbf{1a.} \\
+
+\begin{tabular}[ll]
+  producer & nominal \\
+  release\_to\_review\_time & interval \\
+  rating & ordinal \\
+  helpfulness & ratio \\
+  number\_of\_votes & interval \\
+  length\_of\_review\_text & ratio \\
+\end{tabular}
+
+\textbf{1b.} Apple. \\
+
+\textbf{1c.} 52.9681794471 %.\\
+
+\textbf{1d.} 52.9681794471 %.\\
+
+
+\end{document}
