@@ -50,10 +50,39 @@ import matplotlib.pyplot as plt
 
 lengths = []
 for row in rows:
-  lengths.append(int(row[7]))
+  lengths.append(float(row[7]))
 
 plt.ioff()
 
 thing = plt.hist(lengths, 200)
 plt.savefig("length_plot.png")
+plt.close()
+
+rows_by_review_length = sorted(rows, lambda a, b: int(a[7]) - int(b[7]))
+print rows_by_review_length[-1]
+print rows_by_review_length[-2]
+print rows_by_review_length[-3]
+
+print "\n\n"
+
+makers = {}
+for row in rows:
+  if row[0] in makers:
+    makers[row[0]] += 1
+  else:
+    makers[row[0]] = 1
+
+sorted_makers = sorted(makers, lambda a, b: makers[b] - makers[a])
+for maker in sorted_makers:
+  print maker, makers[maker]
+
+helpfullness = [];
+for row in rows:
+  helpfullness.append(float(row[5]))
+
+print 'pearson correlation btwn lengthand helpfullness:', stats.pearsonr(lengths, helpfullness)
+
+plt.figure()
+plt.scatter(lengths, helpfullness)
+plt.savefig("length_helpfullness_scatter.png")
 plt.close()
