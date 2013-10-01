@@ -83,7 +83,9 @@ for row in rows:
 print 'pearson correlation btwn lengthand helpfullness:', stats.pearsonr(lengths, helpfullness)
 
 plt.figure()
-plt.axis([0, 1, 0, 26332])
 plt.scatter(helpfullness, lengths)
+plt.axis([0, 1, 0, 26332])
+plt.xlabel("Helpfullness")
+plt.ylabel("Length")
 plt.savefig("length_helpfullness_scatter.png")
 plt.close()
