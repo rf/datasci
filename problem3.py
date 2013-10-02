@@ -1,3 +1,4 @@
+from __future__ import division
 import math
 
 hyperplanes = [
@@ -26,3 +27,12 @@ def sketch (vector, hyperplanes):
 print sketch(u, hyperplanes)
 print sketch(v, hyperplanes)
 print sketch(w, hyperplanes)
+
+def magnitude (vector):
+  return math.sqrt(sum(map(lambda a: a * a, vector)))
+
+def similarity (a, b):
+  return dot(a, b) / (magnitude(a) * magnitude(b))
+
+print "Similarity sketch(u) sketch(v):", similarity(sketch(u, hyperplanes), sketch(v, hyperplanes))
+print "Similarity sketch(u) sketch(w):", similarity(sketch(u, hyperplanes), sketch(w, hyperplanes))

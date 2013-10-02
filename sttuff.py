@@ -23,10 +23,10 @@ print "realnamers verified purchase", realnamers_verified / total_realnamers
 total_verified = 0
 verified_realnamers = 0
 for row in rows:
-  if row[2] == "1":
+  if row[3] == "1":
     total_verified += 1
 
-    if row[3] == "1":
+    if row[2] == "1":
       verified_realnamers += 1
 
 print "verified realnamers purchase", verified_realnamers / total_verified
