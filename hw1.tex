@@ -103,9 +103,25 @@ Similarity sketch(u) sketch(w): -0.333333333333 \\
 
 \textbf{4a.} \\
 
+The Mahalanobis distance reduces to the Euclidean distance when the covariance
+matrix is the identity. This is the case when the covariance is 0 between each
+different random variable, and obviously the ones on the diagonal correspond to
+the covariance between a random variable and itself, which is 1.
+
 \textbf{4b.} \\
 
+When the covariance matrix is a diagonal matrix, the Mahalanobis distance
+reduces to the normalized Euclidean distance. In this case, we have random
+variables which have some differing variance; and the normalized Euclidean
+distance is exactly what it sounds like: a normalized distance. The inverse
+of this diagonal matrix is therefore going to be $\frac{1}{\delta}$, where
+$\delta$ is the variance of the corresponding variable. Since it's in the
+denominator, it ends up dividing each component of the distance, resulting in
+a normalized distance.
+
 \textbf{5a.} \\
+
+Only the last function is a true permutation.
 
 \textbf{5b.} \\
 
