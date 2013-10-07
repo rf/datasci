@@ -39,7 +39,7 @@ documents = []
 
 for i in range(0, 4):
   print "Signature of document", i+1, ":", minhash(0, i), minhash(1, i), minhash(2, i)
-  sigs.append(set([minhash(0, i), minhash(1, i), minhash(2, i)]))
+  sigs.append([minhash(0, i), minhash(1, i), minhash(2, i)])
 
   # also build s as sets
   documents.append(set())
@@ -50,10 +50,16 @@ for i in range(0, 4):
 def jaccard (a, b):
   return float(len(a & b)) / float(len(a | b))
 
-print sigs
-print documents
+def jaccard_estimate (a, b):
+  same = 0
+  for i in range(0, 3):
+    if a[i] == b[i]: same += 1
+  return float(same) / 3.0
+
+print "signatures:", sigs
+print "documents:", documents
 
 for ii in range(0, 4):
   for jj in range(ii, 4):
     if ii != jj:
-      print "s", ii+1, "and s", jj+1, "estimation", jaccard(sigs[ii], sigs[jj]), "actual", jaccard(documents[ii], documents[jj])
+      print "s", ii+1, "and s", jj+1, "estimation", jaccard_estimate(sigs[ii], sigs[jj]), "actual", jaccard(documents[ii], documents[jj])
