@@ -1,0 +1,66 @@
+\documentclass[10pt]{amsart}
+
+\usepackage{color}
+\usepackage{enumitem}
+\usepackage{verbatim}
+\usepackage{graphicx} 
+\usepackage{fancyhdr}
+
+\setlength{\headsep}{.33in}
+\setlength{\topsep}{0in}
+\setlength{\topmargin}{-0.2in}
+\setlength{\topskip}{0in}    % between header and text
+\setlength{\textheight}{9.8in} % height of main text
+\setlength{\textwidth}{7.05in}    % width of text
+\setlength{\oddsidemargin}{-0.30in} % odd page left margin
+\setlength{\evensidemargin}{-0.30in} % even page left margin
+\setlength{\parindent}{0in}   % remove paragraph indenting
+
+\linespread{1.13}
+
+\newcommand{\head}[1]{
+   \begin{tabular*}{7.1in}{@{}l@{\extracolsep{\fill}}r}
+      Russell Frank & \today \\
+   \end{tabular*}
+   \begin{center} \LARGE #1 \normalsize \end{center}
+   \vskip 0.1in
+}
+
+\def\wl{\par \vspace{\baselineskip}}
+
+\pagestyle{fancy}
+\fancyhead[R]{rfranknj \thepage / 4}
+
+\begin{document}
+
+\head{Data Science HW 2}
+
+\begin{center}
+
+\begin{tabular}{l|l}
+  1a & 2 \\
+  1b & 2 \\
+  1c & 2 \\
+  1d & 2 \\
+  1e & 2 \\
+  1f & 2 \\
+  1h & 3 \\
+  1i & 3 \\
+  2 & 3 \\
+  3a & 3 \\
+  3b & 4 \\
+  4 & 4 \\
+  5 & 4 \\
+  6 & 4 \\
+  7 & 4 \\
+\end{tabular}
+
+\end{center}
+
+\newpage
+
+\textbf{1a.} 0.202 \\
+
+\textbf{1b.} 0.798 \\
+
+\end{document}
