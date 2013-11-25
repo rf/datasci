@@ -58,60 +58,19 @@
 
 \newpage
 
-\textbf{1a.} 0.202 \\
+\textbf{7a.} Well, we can graph the average distance to centroid versus the 
+number of clusters $k$; then, we choose the value of $k$ corresponding to 
+where the average distance to centroid begins to drop slowly. In other words,
+at some point increasing the number of clusters stops significantly decreasing
+the average distance to a centroid, and this would be a good value of $k$ to
+choose. \\
 
-\textbf{1b.} 0.798 \\
+\textbf{7b.} As described previously, if we're choosing a value for $k$ that
+seems to produce a small average distance to centroid, it should be a good 
+value for the number of clusters. \\
 
-\textbf{2.} \\
 
-\textbf{3a.} The dropped element is $d$. It had a popularity score of 0.5. \\
 
-\textbf{3b.} The most popular element is $a$ and its score is 2.1. \\
-
-\textbf{4.} 7 8 9 10 works. The hash values are: \\
-
-7 6 0110 \\
-8 9 1001 \\
-9 1 0001 \\
-10 4 0100 \\
-
-So, the longest tail length is that of h(10), which is 4, or 0100, and $2^2 = 4$. \\
-
-\textbf{5.}
-
-\begin{verbatim}
-
-A V (B ^ C)
-
-         A
-     1 /  \ 0
-      1    B
-        1 / \ 0
-         C   0
-      1 / \ 0
-       1  0
-
-\end{verbatim}
-
-\textbf{6.} \\
-
-\textbf{7.} \\
-Accuracy: 0.0950 \\
-Precision: 0.0871   \\
-Recall: 0.8500   \\
-F1 Score: 0.1580  \\
-
-\textbf{8a.} The accuracy is 0.99. This is a poor fraud detection system 
-because we would rather have a classifier that produces some false positives
-but produces no false negatives than the opposite.  \\
-
-\textbf{8b.} Recall: 0. Precision: 0. \\
-
-\textbf{9.} ROC \\
-
-\textbf{10.} The tuple where a decision tree beats native bayes is Led7. 0.16 \\
-
-\textbf{11.} Always switch.
 
 
 \end{document}
