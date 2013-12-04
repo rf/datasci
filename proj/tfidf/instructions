@@ -1,0 +1,7 @@
+node test.js > termized.json
+
+node df.js > df.json
+
+node pickterms.js  > pickedterms.json
+
+node buildmap.js > map.json
