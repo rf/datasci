@@ -1,15 +1,35 @@
-var map = require('./map.json');
 var fs = require('fs')
 var natural = require('natural');
 var lazy = require('lazy')
 
+var async = require('async');
+
 var df = require('./df.json');
-var stuff = require('./stuff');
+
+var redis = require('redis').createClient();
+
+function termize (input) {
+  return removeStopWords(natural.PorterStemmer.tokenizeAndStem(input));
+}
+
+var stopwordsArray = require('./stopwords');
+var stopwords = {};
+for (var i in stopwordsArray) {
+  stopwords[stopwordsArray[i]] = true;
+}
+
+function removeStopWords (input) {
+  return input.reduce(function (memo, item) {
+    if (!stopwords[item]) memo.push(item);
+    return memo;
+  }, []);
+}
+
 
 lazy(fs.createReadStream('testdata.json')).lines.forEach(function (line) {
   line = JSON.parse(line);
   
-  var termsraw = stuff.termize(line[0] + ' ' + line[1]);
+  var termsraw = termize(line[0] + ' ' + line[1]);
   var terms = {};
 
   termsraw.forEach(function (item) {
@@ -39,46 +59,56 @@ lazy(fs.createReadStream('testdata.json')).lines.forEach(function (line) {
 
   var trigrams = natural.NGrams.trigrams(onlyterms);
 
+  trigrams = trigrams.concat(natural.NGrams.bigrams(onlyterms));
+
   var tags = [];
 
   //console.log(trigrams);
+  //
 
-  trigrams.forEach(function (g) {
-    var full = g.join(',');
-    var score = g.reduce(function (memo, item) {
+  async.each(trigrams, function (item, done) {
+   var full = item.join(',');
+    var score = item.reduce(function (memo, item) {
       memo += terms[term] / df[term];
       return memo;
     }, 0);
 
-    var results = map[full];
-    for (var t in results) {
-      tags.push({
-        tag: t,
-        score: score * results[t]
-      });
-    }
-  });
+    redis.hgetall(full, function (err, results) {
+       for (var t in results) {
+         tags.push({
+           tag: t,
+           score: score * results[t]
+         });
+       }
 
-  tags = tags.reduce(function (memo, data) {
-    if (memo[data.tag]) memo[data.tag] += data.score;
-    else memo[data.tag] = data.score;
-    return memo;
-  }, {});
-
-  bettertags = [];
-
-  for (var i in tags) {
-    bettertags.push({
-      tag: i,
-      score: tags[i]
+       done();
     });
-  }
+  
+  }, function () {
 
-  var sorted = bettertags.sort(function (a, b) {
-    return b.score - a.score;
-  });
+     tags = tags.reduce(function (memo, data) {
+       if (memo[data.tag]) memo[data.tag] += data.score;
+       else memo[data.tag] = data.score;
+       return memo;
+     }, {});
 
-  if (sorted.length > 0) {
-    console.log(sorted.reduce(function (memo, item) { return memo + ' ' + item.tag; }, '') + "    actual: " + line[2]);
-  }
+     bettertags = [];
+
+     for (var i in tags) {
+       bettertags.push({
+         tag: i,
+         score: tags[i]
+       });
+     }
+
+     var sorted = bettertags.sort(function (a, b) {
+       return b.score - a.score;
+     });
+
+     if (sorted.length > 0) {
+       console.log(sorted.slice(0, 10).reduce(function (memo, item) { return memo + ' ' + item.tag; }, '') + "    actual: " + line[2]);
+     }
+
+     redis.end();
+   });
 });

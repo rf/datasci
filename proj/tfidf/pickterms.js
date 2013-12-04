@@ -44,10 +44,10 @@ lazy(fs.createReadStream('termized.json')).lines.forEach(function (line) {
     return b.tfidf - a.tfidf;
   });
 
-  done += 1;
-
   output.write(JSON.stringify([
     termarray.slice(0, 10),
     line[1]
   ]) + "\n");
+
+  done += 1;
 });
