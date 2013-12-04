@@ -10,7 +10,7 @@
 \setlength{\topsep}{0in}
 \setlength{\topmargin}{-0.2in}
 \setlength{\topskip}{0in}    % between header and text
-\setlength{\textheight}{9.8in} % height of main text
+\setlength{\textheight}{9in} % height of main text
 \setlength{\textwidth}{7.05in}    % width of text
 \setlength{\oddsidemargin}{-0.30in} % odd page left margin
 \setlength{\evensidemargin}{-0.30in} % even page left margin
@@ -29,34 +29,74 @@
 \def\wl{\par \vspace{\baselineskip}}
 
 \pagestyle{fancy}
-\fancyhead[R]{rfranknj \thepage / 2}
+\fancyhead[R]{rfranknj \thepage / 3}
 
 \begin{document}
 
-\head{Data Science HW 2}
+\head{Data Science HW 3}
 
 \begin{center}
 
 \begin{tabular}{l|l}
-  1a & 2 \\
-  1b & 2 \\
-  2 & not done \\
-  3a & 2 \\
-  3b & 2 \\
-  4 & 2 \\
-  5 & 2 \\
-  6 & not done \\
-  7 & 2 \\
-  8a & 2 \\
-  8b & 2 \\
-  9 & 2 \\
-  10 & 2 \\
-  11 & 2 \\
+
+  1 & 2 \\
+  2 & 2  \\
+  3 & 2  \\
+  4 & 2  \\
+  5 & 2  \\
+  6 & 2  \\
+  7a & 2  \\
+  7b & 3  \\
+  8 & 2  \\
+  9 & 3  \\
+  10 & 3  \\
+  11 & 3  \\
+  12 & 3  \\
+  13 & 3  \\
+
 \end{tabular}
 
 \end{center}
 
 \newpage
+
+\textbf{1.}
+
+\fbox{\includegraphics[width=4in]{graph.png}} \\
+
+\textbf{2.} \\
+
+$dim(X) = 14 * 3 = 42$ \\
+$dim(\theta) = 14 * 1 = 14$ \\
+$dim(y) = 14 * 1 = 14$\\
+
+\textbf{3a.}
+Yes, feature scaling is necessary. We could divide $(midterm exam)^2$ by 100 to
+get them on the same scale.\\
+
+\textbf{3b.}
+If $J(\theta)$ is increasing, we should choose a smaller $\alpha$ for our
+gradient descent. \\
+
+\textbf{4.} Well, it either overfit or underfit the data, despite the fact
+that Adaboost is less susceptible to overfitting. If the weak classifiers
+are too weak it may overfit the data. \\
+
+\textbf{5a.} The bias is too high and the variance is too low. \\
+
+\textbf{5b.} Increase. Generally the technique for picking the right values for
+the parameters includes gradually increasing $C$. \\
+
+\textbf{5c.} Decrease. \\
+
+\textbf{6.}   \\
+p1: 0.25 \\
+p2: 0.19 \\
+p3: 0.25 \\
+p4: 0.94 \\
+
+For the two clusters: 0.22, 0.44 \\
+For the 'overall' cluster: 0.33 \\
 
 \textbf{7a.} Well, we can graph the average distance to centroid versus the 
 number of clusters $k$; then, we choose the value of $k$ corresponding to 
@@ -79,6 +119,28 @@ total SSE. \\
 \textbf{9b.} c1: ((3, 2), (6, 5))   c2: ((0, 8)) \\
 
 \textbf{9c.} The new error is 10, so the reduction is 26. \\
+
+\textbf{10a.} 1.00 \\
+
+\textbf{10b.} 3.16  \\
+
+\textbf{10c.} 2.13\\
+
+\textbf{10d.} 2.00\\
+
+\textbf{11.} We get four clusters: (a), (b, c, d), (e, f), (g)\\
+
+\textbf{12.} Point 3. The distance with the L1 norm to (0, 0) is 69 and to 
+(100, 40) is 71. The distance with the L2 norm to (0, 0) is 61.52 and to 
+(100, 40) is 46.18. So, with the L1 norm we would choose (0, 0); with the L2
+norm we would choose (100, 40).\\
+
+\textbf{13.}  \\
+
+(a, b, c, d): (1, 6) \\  
+(b, c, d, e): (3, 7) \\
+(c, d, e, f): (7, 7) \\
+(a, b, e, f): (3, 7) \\
 
 
 \end{document}
