@@ -38,11 +38,12 @@ var lastDone = 0;
 var lastpercent = -1;
 
 function go (filename, callback) {
-  var output = fs.createWriteStream('termized.json');
-//  var output = process.stdout;
+//  var output = fs.createWriteStream('termized.json');
+var output = process.stdout;
 
   for (var i = 0; i < 32; i++) {
     children[i].on('message', function (msg) {
+      done++;
       output.write(msg);
     });
   }
@@ -70,7 +71,7 @@ function go (filename, callback) {
     ]) + "\n");
     */
 
-    children[curr_child].send(line);
+    children[curr_child].send(String(line));
     curr_child++;
     if (curr_child == 32) curr_child = 0;
 

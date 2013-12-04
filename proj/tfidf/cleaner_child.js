@@ -21,7 +21,7 @@ function termize (input) {
 
 process.on('message', function (msg) {
   msg = JSON.parse(msg);
-  process.send(JSON.stringnify([
+  process.send(JSON.stringify([
     termize(msg.Title + ' ' + msg.Body),
     msg.Tags
   ]) + "\n");
