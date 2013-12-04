@@ -22,26 +22,14 @@ function termize (input) {
   return removeStopWords(natural.PorterStemmer.tokenizeAndStem(input));
 }
 
-function one (input, tags) {
-  var terms = {};
+var children = [];
+var fork = require('child_process').fork;
 
-  input = termize(input);
-
-  // take each term once
-  input.forEach(function (term) {
-    terms[term] = true;
-    if (df[term]) df[term] += 1;
-    else df[term] = 1;
-  });
-
-  for (var term in terms) {
-    map[term] = map[term] || {};
-    tags.forEach(function (tag) {
-      if (map[term][tag]) map[term][tag] += 1;
-      else map[term][tag] = 1;
-    });
-  }
+for (var i = 0; i < 32; i++) {
+  children.push(fork(__dirname + '/cleaner_child.js'));
 }
+
+var curr_child = 0;
 
 var totes = 2012348;
 var done = 0;
@@ -51,29 +39,40 @@ var lastpercent = -1;
 
 function go (filename, callback) {
   var output = fs.createWriteStream('termized.json');
+//  var output = process.stdout;
+
+  for (var i = 0; i < 32; i++) {
+    children[i].on('message', function (msg) {
+      output.write(msg);
+    });
+  }
 
   setInterval(function () {
     var l = done - lastDone;
     var docssec = l/10;
 
-    console.log(l/10 + " docs / sec; " + Math.floor((done/totes) * 100) + " %. " + "ETA is " + ((totes - done) / docssec)/60 + " minutes ");
+    process.stderr.write(l/10 + " docs / sec; " + Math.floor((done/totes) * 100) + " %. " + "ETA is " + ((totes - done) / docssec)/60 + " minutes \n");
 
     lastDone = done;
   }, 10000);
 
   lazy(fs.createReadStream(filename)).lines.forEach(function (line) {
+  /*  
     line = JSON.parse(line);
     //one(line.Title + ' ' + line.Body, line.Tags);
     done += 1;
 
     var percent = ((done / totes) * 100);
 
-    //console.log(percent);
-    
     output.write(JSON.stringify([
       termize(line.Title + ' ' + line.Body), 
       line.Tags
     ]) + "\n");
+    */
+
+    children[curr_child].send(line);
+    curr_child++;
+    if (curr_child == 32) curr_child = 0;
 
   }).on('pipe', function () {
     callback(map, df);
